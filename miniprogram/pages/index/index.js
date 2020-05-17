@@ -3,47 +3,35 @@ const app = getApp()
 
 Page({
   data: {
-    avatarUrl: './user-unlogin.png',
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: ''
-  },
-
-  onLoad: function() {
-    if (!wx.cloud) {
-      wx.redirectTo({
-        url: '../chooseLib/chooseLib',
-      })
-      return
-    }
-
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
-          })
-        }
+    menu: [{
+        text: '新建修理单'
+      },
+      {
+        text: '查询修理单'
+      },
+      {
+        text: '新建采购单'
+      },
+      {
+        text: '查询采购单'
+      },
+      {
+        text: '修理项目管理'
+      },
+      {
+        text: '采购项目管理'
+      },
+      {
+        text: '账号管理'
+      },
+      {
+        text: '关于'
       }
-    })
+    ]
   },
 
-  onGetUserInfo: function(e) {
-    if (!this.data.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
-      })
-    }
-  },
+  onLoad: function () {
+
+  }
 
 })

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "mp-dialog": "../miniprogram_npm/weui-miniprogram/dialog/dialog"
+    "mp-dialog": "../miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "mp-grids": "../miniprogram_npm/weui-miniprogram/grids/grids"
   }
 }

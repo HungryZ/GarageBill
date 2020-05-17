@@ -1,1 +1,19 @@
 /**index.wxss**/
+.content {
+  padding-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cell {
+    margin: 5px;
+    padding: 0 10px;
+    text-align: center;
+    background-color: var(--weui-BG-0);
+    width: 38%;
+    line-height: 4.3em;
+    color: var(--weui-FG-1);
+    border-radius: 6rpx;
+    box-shadow: 3px 3px 4px #ccc;
+}
