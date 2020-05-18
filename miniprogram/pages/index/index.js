@@ -4,7 +4,8 @@ const app = getApp()
 Page({
   data: {
     menu: [{
-        text: '新建修理单'
+        text: '新建修理单',
+        url: 'repair/bill/create/create'
       },
       {
         text: '查询修理单'
@@ -25,7 +26,7 @@ Page({
         text: '账号管理'
       },
       {
-        text: '关于'
+        text: 'holder'
       }
     ]
   },

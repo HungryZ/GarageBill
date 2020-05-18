@@ -1,0 +1,23 @@
+<view class="header">
+	<text>单号：20200518010001</text>
+	<text>2020/05/18</text>
+</view>
+<view class="body border">
+	<view class="paramater border">
+		<view class="paramaterCell border" wx:for="{{paramaters}}" wx:key="paramater">{{item}}</view>
+	</view>
+	<view style="height: 64rpx;"></view>
+	<view class="row">
+		<view class="border" style="width: 70%; text-align: center;">项目</view>
+		<view class="border" style="width: 30%; text-align: center;">金额</view>
+	</view>
+	<block wx:for="{{items}}" wx:key="items">
+		<view class="row">
+			<view class="border" style="width: 70%; padding-left: 20rpx;">{{item.name}}</view>
+			<view class="border" style="width: 30%; text-align: center;">{{item.amount}}</view>
+		</view>
+	</block>
+</view>
+<view class="footer">
+	<text>合计：18,888.00</text>
+</view>
