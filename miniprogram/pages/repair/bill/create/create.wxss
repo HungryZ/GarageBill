@@ -1,3 +1,16 @@
+/* 横线 */
+.hLine {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+}
+
+/* 竖线 */
+.vLine {
+  width: 1px;
+  background-color: black;
+}
+
 .header {
   margin: 0 auto;
   width: 95%;
@@ -31,6 +44,7 @@
 .row {
   display: flex;
   justify-content: space-between;
+  /* align-items: center; */
 }
 
 .footer {
@@ -38,15 +52,16 @@
   text-align: right;
 }
 
-/* 横线 */
-.hLine {
-  width: 100%;
-  height: 1px;
-  background-color: black;
+.deleteButton {
+  width: 32rpx;
+  height: 32rpx;
+  line-height: 28rpx;
+  background-color: red;
+  text-align: center;
+  border-radius: 50%;
 }
 
-/* 竖线 */
-.vLine {
-  width: 1px;
-  background-color: black;
+.addButton {
+  background-color: #00000000;
+  color: green;
 }

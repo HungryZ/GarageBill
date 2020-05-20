@@ -40,27 +40,23 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    console.log("search onUnload")
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  completeButtonClicked() {
+    wx.navigateBack({
+      complete: (res) => {
+        var pages = getCurrentPages();
+        var prePage = pages[pages.length - 1]; // 执行complete时当前这个页面已经onUnload了
+        var prePageItems = prePage.data.items
+        prePageItems.push({
+          "name": "洗车",
+          "amount": 88
+        })
+        prePage.setData({
+          items: prePageItems,
+        })
+      },
+    })
   }
 })
