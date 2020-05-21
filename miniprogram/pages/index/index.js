@@ -17,7 +17,8 @@ Page({
         text: '查询采购单'
       },
       {
-        text: '修理项目管理'
+        text: '修理项目管理',
+        url: 'repair/item/menu/menu'
       },
       {
         text: '采购项目管理'

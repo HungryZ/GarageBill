@@ -1,2 +1,19 @@
-<!--miniprogram/pages/repair/item/create/create.wxml-->
-<text>miniprogram/pages/repair/item/create/create.wxml</text>
+<view class="page" data-weui-theme="light">
+	<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+	<!-- <mp-toptips msg="{{error}}" type="success" show="{{error}}"></mp-toptips> -->
+	<mp-form-page title="新建修补项目" subtitle="">
+		<mp-form id="form" rules="{{rules}}" models="{{formData}}">
+			<mp-cells title="" footer="项目名称不可重复">
+				<mp-cell prop="name" title="名称" ext-class="">
+					<input bindinput="formInputChange" data-field="name" class="weui-input" value="{{formData.name}}" placeholder="请输入名称" />
+				</mp-cell>
+				<mp-cell prop="price" title="价格" ext-class="">
+					<input bindinput="formInputChange" data-field="price" class="weui-input" value="{{formData.price}}" placeholder="请输入价格" />
+				</mp-cell>
+			</mp-cells>
+		</mp-form>
+		<view slot="button">
+			<button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+		</view>
+	</mp-form-page>
+</view>
