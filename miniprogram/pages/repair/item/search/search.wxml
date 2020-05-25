@@ -1,4 +1,0 @@
-<!--miniprogram/pages/repair/item/search/search.wxml-->
-<text>miniprogram/pages/repair/item/search/search.wxml</text>
-
-	<button class="completeButton" bindtap='completeButtonClicked'>确定</button>

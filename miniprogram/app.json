@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/repair/item/create/create",
     "pages/index/index",
     "pages/purchase/bill/create/create",
     "pages/purchase/bill/search/search",
@@ -8,9 +7,10 @@
     "pages/purchase/item/search/search",
     "pages/repair/bill/create/create",
     "pages/repair/bill/search/search",
-    "pages/repair/item/search/search",
+    "pages/repair/item/create/create",
     "pages/account/account",
-    "pages/repair/item/menu/menu"
+    "pages/repair/item/menu/menu",
+    "pages/repair/item/list/list"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

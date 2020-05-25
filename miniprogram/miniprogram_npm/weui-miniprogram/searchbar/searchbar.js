@@ -230,9 +230,13 @@ Component({
         index,
         item
       });
-    }
+    },
 
+    bindconfirm(e) {
+      this.triggerEvent('confirm', {});
+    }
   }
+
 });
 
 /***/ })

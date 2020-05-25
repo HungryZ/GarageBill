@@ -7,11 +7,11 @@ Page({
   data: {
     list: [{
         path: '../create/create',
-        title: '新增项目',
+        title: '新建项目',
       },
       {
-        path: '../search/search',
-        title: '查询项目',
+        path: '../list/list',
+        title: '项目列表',
       }
     ],
   },

@@ -1,0 +1,8 @@
+<view class="page" data-weui-theme="{{theme}}">
+	<view class="page__bd">
+		<mp-searchbar bindinput="inputting" bindconfirm='searchBtnClicked'></mp-searchbar>
+		<mp-cells title="">
+			<mp-cell wx:for="{{itemList}}" wx:key="repairItem"  value="{{item.name}}" footer="{{item.price}}"></mp-cell>
+		</mp-cells>
+	</view>
+</view>

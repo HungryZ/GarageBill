@@ -1,10 +1,7 @@
-<view class="weui-cells weui-cells_after-title">
-
-	<block wx:for="{{list}}" wx:key="menu">
-		<navigator url="{{item.path}}" class="weui-cell weui-cell_access" style='height: 60rpx'>
-			<view class="weui-cell__bd">{{item.title}}</view>
-			<view class="weui-cell__ft weui-cell__ft_in-access"></view>
-		</navigator>
-	</block>
-
+<view class="page" data-weui-theme="{{theme}}">
+	<view class="page__bd">
+		<mp-cells title="">
+			<mp-cell wx:for="{{list}}" wx:key="menu" link url="{{item.path}}" value="{{item.title}}"></mp-cell>
+		</mp-cells>
+	</view>
 </view>
