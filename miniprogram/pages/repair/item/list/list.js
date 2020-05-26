@@ -5,19 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isEnterFromCreateBill: false,
     inputShowed: false,
     inputVal: "",
-    itemList: [{
-      name: '换轱辘',
-      price: '100'
-    }]
+    itemList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.selectItemsByName('1234')
+    this.selectItemsByName('')
+    this.data.isEnterFromCreateBill = options.isEnterFromCreateBill != null;
   },
 
   inputting: function (e) {
@@ -48,15 +47,21 @@ Page({
       mask: true
     })
     wx.cloud.callFunction({
-      name: 'select-repair-item',
+      name: 'regexp-search',
       data: {
-        name: name,
+        collectionName: 'repair-item',
+        field: 'name',
+        value: name,
       },
       success: res => {
-        console.log('[云函数] [select-repait-item] 调用成功：', res.result)
+        wx.hideLoading()
+        console.log('[云函数] [regexp-search] 调用成功：', res.result)
+        this.setData({
+          itemList: res.result.data
+        })
       },
       fail: err => {
-        console.error('[云函数] [select-repait-item] 调用失败', err)
+        console.error('[云函数] [regexp-search] 调用失败', err)
         wx.showToast({
           icon: 'none',
           title: '请求失败'
@@ -66,6 +71,37 @@ Page({
   },
   
   searchBtnClicked() {
-    console.log(this.data.inputVal)
+    this.selectItemsByName(this.data.inputVal)
+  },
+
+  cellClicked(e) {
+    const selectedItem = this.data.itemList[e.currentTarget.id]
+    if (this.data.isEnterFromCreateBill) {
+      this.popBackWithItem(selectedItem)
+    } else {
+      // 进入详情页面
+      this.pushToDetail(selectedItem)
+    }
+  },
+
+  popBackWithItem(item) {
+    wx.navigateBack({
+      complete: (res) => {
+        var pages = getCurrentPages();
+        var prePage = pages[pages.length - 1]; // 执行complete时当前这个页面已经onUnload了
+        var prePageItems = prePage.data.items
+        prePageItems.push(item)
+        prePage.setData({
+          items: prePageItems,
+        })
+      },
+    })
+  },
+
+  pushToDetail(item) {
+    wx.navigateTo({
+      url: '../create/create?item=' + JSON.stringify(item),
+    })
   }
+
 })

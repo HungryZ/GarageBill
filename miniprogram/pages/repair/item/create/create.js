@@ -1,6 +1,9 @@
 Page({
 
   data: {
+    type: 0, // 0新建，1编辑
+    title: '新建修补项目',
+    item: null,
     formData: {},
     rules: [{
         name: 'name',
@@ -26,7 +29,20 @@ Page({
     ],
   },
 
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    const isEdit = options.item != null
+    this.setData({
+      type: isEdit ? 1 : 0,
+      title: isEdit ? '编辑修补项目' : '新建修补项目',
+      item: isEdit ? JSON.parse(options.item) : null,
+    })
+    if (isEdit) {
+      this.setData({
+        'formData.name': this.data.item.name,
+        'formData.price': this.data.item.price,
+      })
+    }
+  },
 
   formInputChange(e) {
     const {
@@ -37,7 +53,7 @@ Page({
     })
   },
 
-  submitForm() {
+  submitItem() {
     this.selectComponent('#form').validate((valid, errors) => {
       console.log('valid', valid, errors)
       if (valid) {
@@ -53,22 +69,29 @@ Page({
     })
   },
 
+  deleteItem() {
+
+  },
+
   requestCreateRepairItem() {
     wx.showLoading({
       mask: true
     })
     wx.cloud.callFunction({
-      name: 'create-repair-item',
+      name: 'add',
       data: {
-        name: this.data.formData.name,
-        price: Number(this.data.formData.price),
+        collectionName: 'repair-item',
+        data: {
+          name: this.data.formData.name,
+          price: Number(this.data.formData.price),
+        }
       },
       success: res => {
-        console.log('[云函数] [create-repait-item] 调用成功：', res.result)
+        console.log('[云函数] [add] 调用成功：', res.result)
         this.handleResponse(res)
       },
       fail: err => {
-        console.error('[云函数] [create-repait-item] 调用失败', err)
+        console.error('[云函数] [add] 调用失败', err)
         wx.showToast({
           icon: 'none',
           title: '请求失败'

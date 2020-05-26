@@ -28,7 +28,7 @@
 				<view id="{{index}}" class="deleteButton">x</view>
 			</view>
 			<view class="vLine"></view>
-			<view style="width: 25%; text-align: center;">{{item.amount}}</view>
+			<view style="width: 25%; text-align: center;">{{item.price}}</view>
 		</view>
 		<view class="hLine"></view>
 	</block>

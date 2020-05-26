@@ -23,10 +23,10 @@ Page({
     ],
     items: [{
       "name": "洗车",
-      "amount": 88
+      "price": 88
     },{
       "name": "洗车",
-      "amount": 88
+      "price": 88
     }],
   },
 
@@ -67,7 +67,7 @@ Page({
 
   addButtonClicked() {
     wx.navigateTo({
-      url: '../../item/search/search',
+      url: '../../item/list/list?isEnterFromCreateBill=true',
     })
   }
 })
