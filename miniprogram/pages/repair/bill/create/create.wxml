@@ -6,7 +6,7 @@
 	<view class="paramater">
 		<block wx:for="{{paramaters}}" wx:key="paramater">
 			<input class="paramaterCell" placeholder="{{item.name}}"></input>
-			<!-- 下面三个是线条 -->
+			<!-- 下面三个view是线条 -->
 			<view class="vLine" wx:if="{{index % 2 == 0}}"></view>
 			<view class="paramaterCell" wx:if="{{index % 2 == 0 && index == paramaters.length - 1}}"></view>
 			<view class="hLine" wx:if="{{index % 2 == 1 || index == paramaters.length - 1}}"></view>
@@ -39,4 +39,8 @@
 		<view style="width: 70%; box-sizing: border-box; text-align: right;">合计:</view>
 		<view style="width: 30%; text-align: center;">18,088.00</view>
 	</view>
+</view>
+<view slot="button" style="margin-top: 44px">
+	<button class="weui-btn" type="primary" bindtap="submitItem">保存</button>
+	<button class="weui-btn" type="warn" wx:if="{{type == 1}}" bindtap="deleteItem">删除</button>
 </view>

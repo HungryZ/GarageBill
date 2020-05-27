@@ -15,8 +15,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.selectItemsByName('')
     this.data.isEnterFromCreateBill = options.isEnterFromCreateBill != null;
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.selectItemsByName('')
   },
 
   inputting: function (e) {
@@ -100,7 +106,7 @@ Page({
 
   pushToDetail(item) {
     wx.navigateTo({
-      url: '../create/create?item=' + JSON.stringify(item),
+      url: '../cud/cud?item=' + JSON.stringify(item),
     })
   }
 

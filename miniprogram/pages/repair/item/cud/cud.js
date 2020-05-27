@@ -57,7 +57,7 @@ Page({
     this.selectComponent('#form').validate((valid, errors) => {
       console.log('valid', valid, errors)
       if (valid) {
-        this.requestCreateRepairItem()
+        this.data.type == 0 ? this.requestCreateRepairItem() : this.requestUpdateItem()
       } else {
         const firstError = Object.keys(errors)
         if (firstError.length) {
@@ -70,7 +70,7 @@ Page({
   },
 
   deleteItem() {
-
+    this.requestRemoveItem()
   },
 
   requestCreateRepairItem() {
@@ -100,20 +100,87 @@ Page({
     })
   },
 
+  requestUpdateItem() {
+    wx.showLoading({
+      mask: true
+    })
+    wx.cloud.callFunction({
+      name: 'update',
+      data: {
+        collectionName: 'repair-item',
+        _id: this.data.item._id,
+        data: {
+          name: this.data.formData.name,
+          price: Number(this.data.formData.price),
+        }
+      },
+      success: res => {
+        console.log('[云函数] [update] 调用成功：', res.result)
+        this.handleResponse(res)
+      },
+      fail: err => {
+        console.error('[云函数] [update] 调用失败', err)
+        wx.showToast({
+          icon: 'none',
+          title: '请求失败'
+        })
+      }
+    })
+  },
+
+  requestRemoveItem() {
+    wx.showLoading({
+      mask: true
+    })
+    wx.cloud.callFunction({
+      name: 'remove',
+      data: {
+        collectionName: 'repair-item',
+        _id: this.data.item._id
+      },
+      success: res => {
+        wx.hideLoading()
+        console.log('[云函数] [remove] 调用成功：', res.result)
+        if (res.result.succeed) {
+          wx.showToast({
+            icon: 'success',
+            title: '删除成功',
+          })
+          setTimeout(() => {
+            wx.navigateBack()
+          }, 500);
+        } else {
+          this.setData({
+            error: '删除失败'
+          })
+        }
+      },
+      fail: err => {
+        console.error('[云函数] [remove] 调用失败', err)
+        wx.showToast({
+          icon: 'none',
+          title: '请求失败'
+        })
+      }
+    })
+  },
+
   handleResponse(res) {
     wx.hideLoading()
     if (res.result.succeed) {
       wx.showToast({
         icon: 'success',
-        title: '新建成功'
+        title: '成功'
       })
-      // 清空数据以便再次创建
-      this.setData({
-        formData: {}
-      })
+      if (this.data.type == 0) {
+        // 清空数据以便再次创建
+        this.setData({
+          formData: {}
+        })
+      }
     } else {
       this.setData({
-        error: '创建失败，一般原因是项目名重复'
+        error: '操作失败，一般原因是项目名重复'
       })
     }
   },

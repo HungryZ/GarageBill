@@ -1,4 +1,0 @@
-/* miniprogram/pages/repair/item/create/create.wxss */
-.weui-agree .weui-agree__text {
-  display: inline;
-}

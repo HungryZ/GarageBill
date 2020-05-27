@@ -1,0 +1,4 @@
+/* miniprogram/pages/repair/item/cud/cud.wxss */
+.weui-agree .weui-agree__text {
+  display: inline;
+}

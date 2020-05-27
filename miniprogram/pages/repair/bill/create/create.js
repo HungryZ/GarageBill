@@ -21,13 +21,7 @@ Page({
         "name": "请输入里程"
       },
     ],
-    items: [{
-      "name": "洗车",
-      "price": 88
-    },{
-      "name": "洗车",
-      "price": 88
-    }],
+    items: [],
   },
 
   /**
@@ -48,7 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    console.log(this.data.items)
   },
 
   /**

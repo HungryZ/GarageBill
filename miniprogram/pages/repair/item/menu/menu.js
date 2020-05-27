@@ -6,7 +6,7 @@ Page({
    */
   data: {
     list: [{
-        path: '../create/create',
+        path: '../cud/cud',
         title: '新建项目',
       },
       {

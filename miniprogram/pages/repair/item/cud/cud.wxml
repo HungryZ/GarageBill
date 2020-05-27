@@ -1,3 +1,4 @@
+<!-- 增删改页面都是这一个（create，update， delete） -->
 <view class="page" data-weui-theme="light">
 	<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
 	<!-- <mp-toptips msg="{{error}}" type="success" show="{{error}}"></mp-toptips> -->
