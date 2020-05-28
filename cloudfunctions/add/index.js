@@ -9,11 +9,12 @@ exports.main = async (event, context) => {
   try {
     let data = event.data
     data._openid = cloud.getWXContext().OPENID
-    await db.collection(event.collectionName).add({
+    let newRecord = await db.collection(event.collectionName).add({
       data: data
     })
     return {
-      succeed: true
+      succeed: true,
+      _id: newRecord._id
     }
   } catch (e) {
     console.error(e)
