@@ -31,23 +31,6 @@ Page({
     })
   },
 
-  completeButtonClicked() {
-    wx.navigateBack({
-      complete: (res) => {
-        var pages = getCurrentPages();
-        var prePage = pages[pages.length - 1]; // 执行complete时当前这个页面已经onUnload了
-        var prePageItems = prePage.data.items
-        prePageItems.push({
-          "name": "洗车",
-          "amount": 88
-        })
-        prePage.setData({
-          items: prePageItems,
-        })
-      },
-    })
-  },
-
   selectItemsByName(name) {
     wx.showLoading({
       mask: true

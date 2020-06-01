@@ -7,7 +7,7 @@ Page({
       },
       {
         placeholder: '请输入车型',
-        field: 'model'
+        field: 'carModel'
       },
       {
         placeholder: '请输入车主',
@@ -61,16 +61,23 @@ Page({
     wx.showLoading({
       mask: true
     })
+    // 因为使用的是微信云后台，数据库是json文件数据库，每个字段的值可以直接保存数组或者json，所以这里偷懒了直接把项目列表的数据保存在了修补单items字段下面，直接把数据存在了一张表里面，没有另外建表再关联id，这样存取方便，缺点是存储的数据变大，item数据不会因为repair-item表的更新而更新。
+    let billModel = this.data.formData
+    billModel.items = this.data.items
+    billModel.amount = this.data.totalAmount
+
     wx.cloud.callFunction({
       name: 'add',
       data: {
         collectionName: 'repair-bill',
-        data: this.data.formData
+        data: billModel
       },
       success: res => {
         console.log('[云函数] [add] 调用成功：', res.result)
-        console.log(res.result._id)
-        console.log(this.data.items)
+        wx.showToast({
+          icon: 'success',
+          title: '创建成功',
+        })
       },
       fail: err => {
         console.error('[云函数] [add] 调用失败', err)
@@ -81,8 +88,6 @@ Page({
       }
     })
   },
-
-
 
   calculateTotalAmount() {
     let sum = 0
@@ -97,7 +102,7 @@ Page({
   checkValid() {
     let billModel = this.data.formData
     let rules = [{key: 'platenumber', message: '车牌号必填'}, 
-                 {key: 'model', message: '车型必填'}, 
+                 {key: 'carModel', message: '车型必填'}, 
                  {key: 'mileage', message: '里程数必填'}]
     for (let i = 0; i < rules.length; i++) {
       let rule = rules[i]
