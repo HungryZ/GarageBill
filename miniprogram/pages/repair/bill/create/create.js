@@ -38,7 +38,6 @@ Page({
     this.setData({
       [`formData.${field}`]: e.detail.value
     })
-    console.log(this.data.formData)
   },
 
   addButtonClicked() {
@@ -53,8 +52,22 @@ Page({
     }
   },
 
-  onDelete() {
+  onDelete(e) {
+    let index = e.currentTarget.id
+    this.data.items.splice(index, 1)
+    this.setData({
+      items: this.data.items
+    })
+    this.calculateTotalAmount()
+  },
 
+  countChange(e) {
+    let index = e.currentTarget.id
+    this.data.items[index].count = e.detail.value
+    this.setData({
+      items: this.data.items
+    })
+    this.calculateTotalAmount()
   },
 
   requestCreateBill() {
@@ -65,6 +78,8 @@ Page({
     let billModel = this.data.formData
     billModel.items = this.data.items
     billModel.amount = this.data.totalAmount
+    billModel.date = new Date() // 默认格林威治时间(零时区)
+    // billModel.billNumber = this.generateBillNumber() // 先不做
 
     wx.cloud.callFunction({
       name: 'add',
@@ -87,6 +102,13 @@ Page({
         })
       }
     })
+  },
+
+  dateToString() {
+    let nowDate = new Date()
+    var month = (Array(2).join('0') + (nowDate.getMonth() + 1)).slice(-2)
+    var day = (Array(2).join('0') + nowDate.getDate()).slice(-2)
+    return nowDate.getFullYear() + '-' + month + '-' + day + ' GMT +8';
   },
 
   calculateTotalAmount() {

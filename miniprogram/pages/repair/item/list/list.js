@@ -76,7 +76,7 @@ Page({
   popBackWithItem(item) {
     wx.navigateBack({
       complete: (res) => {
-        item.count = 1
+        item.count = 2
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 1]; // 执行complete时当前这个页面已经onUnload了
         var prePageItems = prePage.data.items
