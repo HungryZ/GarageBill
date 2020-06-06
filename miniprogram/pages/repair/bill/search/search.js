@@ -1,66 +1,109 @@
-// miniprogram/pages/repair/bill/search/search.js
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    selectedTypeIndex: 0,
+    typeArray: ['车牌号', '车型', '车主姓名', '车主手机号'],
+    typeField: ['plateNumber', 'carModel', 'owner', 'phone'],
+    inputShowed: false,
+    inputVal: "",
+    billList: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
 
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
 
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  inputting: function (e) {
+    this.setData({
+      inputVal: e.detail.value
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  selectBillsByPara(para) {
+    wx.showLoading({
+      mask: true
+    })
+    wx.cloud.callFunction({
+      name: 'regexp-search',
+      data: {
+        collectionName: 'repair-bill',
+        field: para.field,
+        value: para.value,
+      },
+      success: res => {
+        wx.hideLoading()
+        console.log('[云函数] [regexp-search] 调用成功：', res.result)
+        this.setData({
+          billList: res.result.data
+        })
+        this.configBillDate()
+      },
+      fail: err => {
+        console.error('[云函数] [regexp-search] 调用失败', err)
+        wx.showToast({
+          icon: 'none',
+          title: '请求失败'
+        })
+      }
+    })
+  },
+  
+  searchBtnClicked() {
+    if (this.data.inputVal.length == 0) {
+      return
+    }
+    this.selectBillsByPara({
+      field: this.data.typeField[this.data.selectedTypeIndex],
+      value: this.data.inputVal
+    })    
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  cellClicked(e) {
+    const selectedBill = this.data.billList[e.currentTarget.id]
+    this.pushToDetail(selectedBill)
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  pushToDetail(bill) {
+    wx.navigateTo({
+      url: '../cud/cud?bill=' + JSON.stringify(bill),
+    })
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  searchTypeClicked() {
+    var that = this
+    wx.showActionSheet({
+      itemList: that.data.typeArray,
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          that.setData({
+            selectedTypeIndex: res.tapIndex,
+          })
+        }
+      }
+    });
+  },
 
-  }
+  configBillDate() {
+    this.data.billList.forEach(bill => {
+      bill.dateString = this.dateToString(bill.date)
+    })
+    this.setData({
+      billList: this.data.billList
+    })
+  },
+
+  dateToString(date) {
+    let realDate = new Date(date)
+    let month = (Array(2).join('0') + (realDate.getMonth() + 1)).slice(-2)
+    let day = (Array(2).join('0') + realDate.getDate()).slice(-2)
+    return realDate.getFullYear() + '-' + month + '-' + day
+  },
+
+
+
 })

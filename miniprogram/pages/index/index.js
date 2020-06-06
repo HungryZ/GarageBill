@@ -5,10 +5,11 @@ Page({
   data: {
     menu: [{
         text: '新建修理单',
-        url: 'repair/bill/create/create'
+        url: 'repair/bill/cud/cud'
       },
       {
-        text: '查询修理单'
+        text: '查询修理单',
+        url: 'repair/bill/search/search'
       },
       {
         text: '新建采购单'

@@ -76,13 +76,13 @@ Page({
   popBackWithItem(item) {
     wx.navigateBack({
       complete: (res) => {
-        item.count = 2
+        item.count = 1
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 1]; // 执行complete时当前这个页面已经onUnload了
-        var prePageItems = prePage.data.items
+        var prePageItems = prePage.data.billModel.items
         prePageItems.push(item)
         prePage.setData({
-          items: prePageItems,
+          [`billModel.${'items'}`]: prePageItems,
         })
         prePage.calculateTotalAmount()
       },

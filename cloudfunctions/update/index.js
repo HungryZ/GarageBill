@@ -6,8 +6,13 @@ const db = cloud.database()
 
 exports.main = async (event, context) => {
   try {
+    let data = event.data
+    // _id不能改变
+    if (data._id) {
+      delete data._id
+    }
     await db.collection(event.collectionName).doc(event._id).update({
-      data: event.data
+      data: data
     })
     return {
       succeed: true

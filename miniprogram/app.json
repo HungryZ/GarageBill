@@ -5,7 +5,7 @@
     "pages/purchase/bill/search/search",
     "pages/purchase/item/create/create",
     "pages/purchase/item/search/search",
-    "pages/repair/bill/create/create",
+    "pages/repair/bill/cud/cud",
     "pages/repair/bill/search/search",
     "pages/repair/item/menu/menu",
     "pages/repair/item/list/list",
