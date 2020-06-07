@@ -3,7 +3,7 @@
 		<mp-cell link value="搜索类型" footer="{{typeArray[selectedTypeIndex]}}" bindtap="searchTypeClicked"></mp-cell>
 		<mp-searchbar bindinput="inputting" bindconfirm='searchBtnClicked'></mp-searchbar>
 		<mp-cells title="">
-			<mp-cell wx:for="{{billList}}" wx:key="billItem" id="{{index}}" value="{{item.plateNumber}}" footer="{{item.dateString}}" bindtap="cellClicked"></mp-cell>
+			<mp-cell wx:for="{{billList}}" wx:key="billItem" id="{{index}}" value="{{itemType == 0 ? item.plateNumber : '采购单'}}" footer="{{item.dateString}}" bindtap="cellClicked"></mp-cell>
 		</mp-cells>
 	</view>
 </view>

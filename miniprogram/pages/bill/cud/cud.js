@@ -1,32 +1,15 @@
 Page({
 
   data: {
-    paramaters: [{
-        placeholder: '请输入车牌',
-        field: 'plateNumber'
-      },
-      {
-        placeholder: '请输入车型',
-        field: 'carModel'
-      },
-      {
-        placeholder: '请输入车主',
-        field: 'owner'
-      },
-      {
-        placeholder: '请输入手机',
-        field: 'phone'
-      },
-      {
-        placeholder: '请输入里程',
-        field: 'mileage'
-      },
-    ],
+    itemType: 0, // 0修补单 1采购单
     billModel: {},
-    type: 0,  // 0创建 1修改
+    type: 0, // 0创建 1修改
+    parameters: [],
   },
 
   onLoad: function (options) {
+    this.data.itemType = options.itemType
+    this.configParameters()
     const bill = options.bill ? JSON.parse(options.bill) : null
     this.setData({
       type: bill ? 1 : 0,
@@ -47,16 +30,23 @@ Page({
 
   addButtonClicked() {
     wx.navigateTo({
-      url: '../../item/list/list?isEnterFromCreateBill=true',
+      url: '../../item/list/list?itemType=' + this.data.itemType + '&isEnterFromCreateBill=true',
     })
   },
 
   onSave() {
     if (this.checkValid()) {
-      if (this.data.type == 0) {
-        this.requestCreateBill()
+      if (this.data.billModel.items && this.data.billModel.items.length > 0) {
+        if (this.data.type == 0) {
+          this.requestCreateBill()
+        } else {
+          this.requestUpdateBill()
+        }
       } else {
-        this.requestUpdateBill()
+        wx.showToast({
+          icon: 'none',
+          title: '项目不能为空'
+        })
       }
     }
   },
@@ -111,7 +101,7 @@ Page({
     wx.cloud.callFunction({
       name: 'add',
       data: {
-        collectionName: 'repair-bill',
+        collectionName: this.data.itemType == 0 ? 'repair-bill' : 'purchase-bill',
         data: this.data.billModel
       },
       success: res => {
@@ -138,7 +128,7 @@ Page({
     wx.cloud.callFunction({
       name: 'update',
       data: {
-        collectionName: 'repair-bill',
+        collectionName: this.data.itemType == 0 ? 'repair-bill' : 'purchase-bill',
         _id: this.data.billModel._id,
         data: this.data.billModel
       },
@@ -166,7 +156,7 @@ Page({
     wx.cloud.callFunction({
       name: 'remove',
       data: {
-        collectionName: 'repair-bill',
+        collectionName: this.data.itemType == 0 ? 'repair-bill' : 'purchase-bill',
         _id: this.data.billModel._id
       },
       success: res => {
@@ -210,32 +200,87 @@ Page({
 
   checkValid() {
     let billModel = this.data.billModel
-    let rules = [{key: 'plateNumber', message: '车牌号必填'}, 
-                 {key: 'carModel', message: '车型必填'}, 
-                 {key: 'mileage', message: '里程数必填'}]
-    for (let i = 0; i < rules.length; i++) {
-      let rule = rules[i]
-      let value = billModel[rule.key]
-      if (value == null || value.length == 0) {
-        wx.showToast({
-          title: rule.message,
-          icon: 'none',
-        })
-        return false
-      }
-    }
 
-    if (billModel.phone && billModel.phone.length > 0) {
-      var reg = /^1[3-9]\d{9}$/
-      if (!reg.test(billModel.phone)) {
-        wx.showToast({
-          title: '手机号格式错误',
-          icon: 'none',
-        })
-        return false
+    for (let i = 0; i < this.data.parameters.length; i++) {
+      let para = this.data.parameters[i]
+      if (para.rules) {
+        for (let i = 0; i < para.rules.length; i++) {
+          let rule = para.rules[i]
+          if (!this.verifyFieldWithRule(billModel[para.field], rule.ruleType)) {
+            wx.showToast({
+              title: rule.message,
+              icon: 'none',
+            })
+            return false
+          }
+        }
       }
     }
 
     return true
+  },
+
+  verifyFieldWithRule(fieldValue, ruleType) {
+    switch (ruleType) {
+      case 0: // 必填
+        return fieldValue != null && fieldValue.length > 0
+
+      case 1: // 手机格式
+        return /^1[3-9]\d{9}$/.test(fieldValue)
+
+      case 2: // 空或者手机格式
+        return fieldValue == null || fieldValue.length == 0 || /^1[3-9]\d{9}$/.test(fieldValue)
+
+      default:
+        return true
+    }
+  },
+
+  configParameters() {
+    let parameters;
+    if (this.data.itemType == 0) {
+      parameters = [{
+          placeholder: '请输入车牌',
+          field: 'plateNumber',
+          rules: [{
+            ruleType: 0,
+            message: '车牌号必填'
+          }],
+        },
+        {
+          placeholder: '请输入车型',
+          field: 'carModel',
+          rules: [{
+            ruleType: 0,
+            message: '车型必填'
+          }],
+        },
+        {
+          placeholder: '请输入车主',
+          field: 'owner'
+        },
+        {
+          placeholder: '请输入手机',
+          field: 'phone',
+          rules: [{
+            ruleType: 2,
+            message: '手机号格式错误'
+          }],
+        },
+        {
+          placeholder: '请输入里程',
+          field: 'mileage',
+          rules: [{
+            ruleType: 0,
+            message: '里程必填'
+          }],
+        },
+      ]
+    } else {
+      parameters = []
+    }
+    this.setData({
+      parameters: parameters
+    })
   },
 })

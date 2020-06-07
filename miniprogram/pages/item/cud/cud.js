@@ -1,7 +1,8 @@
 Page({
 
   data: {
-    type: 0, // 0新建，1编辑
+    itemType: 0,  // 0修补单 1采购单
+    type: 0,      // 0新建 1编辑
     title: '新建修补项目',
     item: null,
     formData: {},
@@ -30,10 +31,12 @@ Page({
   },
 
   onLoad: function (options) {
+    this.data.itemType = options.itemType
+    console.log(this.data.itemType)
     const isEdit = options.item != null
     this.setData({
       type: isEdit ? 1 : 0,
-      title: isEdit ? '编辑修补项目' : '新建修补项目',
+      title: isEdit ? '编辑项目' : '新建项目',
       item: isEdit ? JSON.parse(options.item) : null,
     })
     if (isEdit) {
@@ -80,7 +83,7 @@ Page({
     wx.cloud.callFunction({
       name: 'add',
       data: {
-        collectionName: 'repair-item',
+        collectionName: this.data.itemType == 0 ? 'repair-item' : 'purchase-item',
         data: {
           name: this.data.formData.name,
           price: Number(this.data.formData.price),
@@ -107,7 +110,7 @@ Page({
     wx.cloud.callFunction({
       name: 'update',
       data: {
-        collectionName: 'repair-item',
+        collectionName: this.data.itemType == 0 ? 'repair-item' : 'purchase-item',
         _id: this.data.item._id,
         data: {
           name: this.data.formData.name,
@@ -135,7 +138,7 @@ Page({
     wx.cloud.callFunction({
       name: 'remove',
       data: {
-        collectionName: 'repair-item',
+        collectionName: this.data.itemType == 0 ? 'repair-item' : 'purchase-item',
         _id: this.data.item._id
       },
       success: res => {

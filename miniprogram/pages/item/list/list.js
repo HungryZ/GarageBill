@@ -1,10 +1,11 @@
-// miniprogram/pages/repair/item/list/list.js
+// miniprogram/pages/item/list/list.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    itemType: 0,  // 0修补单 1采购单
     isEnterFromCreateBill: false,
     inputShowed: false,
     inputVal: "",
@@ -15,6 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.data.itemType = options.itemType
     this.data.isEnterFromCreateBill = options.isEnterFromCreateBill != null;
   },
 
@@ -38,7 +40,7 @@ Page({
     wx.cloud.callFunction({
       name: 'regexp-search',
       data: {
-        collectionName: 'repair-item',
+        collectionName: this.data.itemType == 0 ? 'repair-item' : 'purchase-item',
         field: 'name',
         value: name,
       },
@@ -80,6 +82,9 @@ Page({
         var pages = getCurrentPages();
         var prePage = pages[pages.length - 1]; // 执行complete时当前这个页面已经onUnload了
         var prePageItems = prePage.data.billModel.items
+        if (!prePageItems) {
+          prePageItems = []
+        }
         prePageItems.push(item)
         prePage.setData({
           [`billModel.${'items'}`]: prePageItems,
@@ -91,7 +96,7 @@ Page({
 
   pushToDetail(item) {
     wx.navigateTo({
-      url: '../cud/cud?item=' + JSON.stringify(item),
+      url: '../cud/cud?itemType=' + this.data.itemType + '&item=' + JSON.stringify(item),
     })
   }
 

@@ -5,24 +5,27 @@ Page({
   data: {
     menu: [{
         text: '新建修理单',
-        url: 'repair/bill/cud/cud'
+        url: 'bill/cud/cud?itemType=0'
       },
       {
         text: '查询修理单',
-        url: 'repair/bill/search/search'
+        url: 'bill/search/search?itemType=0'
       },
       {
-        text: '新建采购单'
+        text: '新建采购单',
+        url: 'bill/cud/cud?itemType=1'
       },
       {
-        text: '查询采购单'
+        text: '查询采购单',
+        url: 'bill/search/search?itemType=1'
       },
       {
         text: '修理项目管理',
-        url: 'repair/item/menu/menu'
+        url: 'item/menu/menu?itemType=0'
       },
       {
-        text: '采购项目管理'
+        text: '采购项目管理',
+        url: 'item/menu/menu?itemType=1'
       },
       {
         text: '账号管理'

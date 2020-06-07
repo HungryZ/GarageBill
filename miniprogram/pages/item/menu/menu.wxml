@@ -1,7 +1,7 @@
 <view class="page" data-weui-theme="{{theme}}">
 	<view class="page__bd">
 		<mp-cells title="">
-			<mp-cell wx:for="{{list}}" wx:key="menu" link url="{{item.path}}" value="{{item.title}}"></mp-cell>
+			<mp-cell wx:for="{{list}}" wx:key="menu" link url="{{item.path}}?itemType={{itemType}}" value="{{item.title}}"></mp-cell>
 		</mp-cells>
 	</view>
 </view>

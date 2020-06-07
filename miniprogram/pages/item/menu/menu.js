@@ -1,10 +1,11 @@
-// miniprogram/pages/repair/item/menu/menu.js
+// miniprogram/pages/item/menu/menu.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    itemType: 0,  // 0修补单 1采购单
     list: [{
         path: '../cud/cud',
         title: '新建项目',
@@ -20,7 +21,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      itemType: options.itemType
+    })
   },
 
   /**

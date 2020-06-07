@@ -1,16 +1,29 @@
 Page({
 
   data: {
+    itemType: 0, // 0修补单 1采购单
     selectedTypeIndex: 0,
-    typeArray: ['车牌号', '车型', '车主姓名', '车主手机号'],
-    typeField: ['plateNumber', 'carModel', 'owner', 'phone'],
+    typeArray: [],
+    typeField: [],
     inputShowed: false,
     inputVal: "",
     billList: []
   },
 
   onLoad: function (options) {
-
+    if (this.data.itemType == 0) {
+      this.setData({
+        typeArray: ['车牌号', '车型', '车主姓名', '车主手机号'],
+        typeField: ['plateNumber', 'carModel', 'owner', 'phone'],
+        itemType: options.itemType
+      })
+    } else {
+      this.setData({
+        typeArray: ['全部'],
+        typeField: [''],
+        itemType: options.itemType
+      })
+    }
   },
 
   onShow: function () {
@@ -23,6 +36,36 @@ Page({
     })
   },
 
+  searchBtnClicked() {
+    // if (this.data.inputVal.length == 0) {
+    //   return
+    // }
+    this.selectBillsByPara({
+      field: this.data.typeField[this.data.selectedTypeIndex],
+      value: this.data.inputVal
+    })
+  },
+
+  cellClicked(e) {
+    const selectedBill = this.data.billList[e.currentTarget.id]
+    this.pushToDetail(selectedBill)
+  },
+
+  searchTypeClicked() {
+    var that = this
+    wx.showActionSheet({
+      itemList: that.data.typeArray,
+      success: function (res) {
+        if (!res.cancel) {
+          console.log(res.tapIndex)
+          that.setData({
+            selectedTypeIndex: res.tapIndex,
+          })
+        }
+      }
+    });
+  },
+
   selectBillsByPara(para) {
     wx.showLoading({
       mask: true
@@ -30,7 +73,7 @@ Page({
     wx.cloud.callFunction({
       name: 'regexp-search',
       data: {
-        collectionName: 'repair-bill',
+        collectionName: this.data.itemType == 0 ? 'repair-bill' : 'purchase-bill',
         field: para.field,
         value: para.value,
       },
@@ -51,41 +94,11 @@ Page({
       }
     })
   },
-  
-  searchBtnClicked() {
-    if (this.data.inputVal.length == 0) {
-      return
-    }
-    this.selectBillsByPara({
-      field: this.data.typeField[this.data.selectedTypeIndex],
-      value: this.data.inputVal
-    })    
-  },
-
-  cellClicked(e) {
-    const selectedBill = this.data.billList[e.currentTarget.id]
-    this.pushToDetail(selectedBill)
-  },
 
   pushToDetail(bill) {
     wx.navigateTo({
-      url: '../cud/cud?bill=' + JSON.stringify(bill),
+      url: '../cud/cud?itemType=' + this.data.itemType + '&bill=' + JSON.stringify(bill),
     })
-  },
-
-  searchTypeClicked() {
-    var that = this
-    wx.showActionSheet({
-      itemList: that.data.typeArray,
-      success: function (res) {
-        if (!res.cancel) {
-          console.log(res.tapIndex)
-          that.setData({
-            selectedTypeIndex: res.tapIndex,
-          })
-        }
-      }
-    });
   },
 
   configBillDate() {
@@ -103,7 +116,4 @@ Page({
     let day = (Array(2).join('0') + realDate.getDate()).slice(-2)
     return realDate.getFullYear() + '-' + month + '-' + day
   },
-
-
-
 })

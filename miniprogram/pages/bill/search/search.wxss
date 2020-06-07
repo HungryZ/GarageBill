@@ -1,16 +1,3 @@
-/* 横线 */
-.hLine {
-  width: 100%;
-  height: 1px;
-  background-color: black;
-}
-
-/* 竖线 */
-.vLine {
-  width: 1px;
-  background-color: black;
-}
-
 .header {
   margin: 0 auto;
   width: 95%;
@@ -30,13 +17,13 @@
   border: 1px solid black;
 }
 
-.paramater {
+.parameter {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.paramaterCell {
+.parameterCell {
   width: 45%;
   padding-left: 20rpx;
 }
@@ -44,7 +31,6 @@
 .row {
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
 }
 
 .footer {
@@ -52,16 +38,15 @@
   text-align: right;
 }
 
-.deleteButton {
-  width: 32rpx;
-  height: 32rpx;
-  line-height: 28rpx;
-  background-color: red;
-  text-align: center;
-  border-radius: 50%;
+/* 横线 */
+.hLine {
+  width: 100%;
+  height: 1px;
+  background-color: black;
 }
 
-.addButton {
-  background-color: #00000000;
-  color: green;
+/* 竖线 */
+.vLine {
+  width: 1px;
+  background-color: black;
 }

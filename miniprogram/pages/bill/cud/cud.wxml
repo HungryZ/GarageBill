@@ -3,13 +3,13 @@
 	<text>{{billModel.dateString}}</text>
 </view>
 <view class="body">
-	<view class="paramater">
-		<block wx:for="{{paramaters}}" wx:key="paramater">
-			<input class="paramaterCell" placeholder="{{item.placeholder}}" bindinput="formInputChange" data-field="{{item.field}}" value="{{billModel[item.field]}}"></input>
+	<view class="parameter">
+		<block wx:for="{{parameters}}" wx:key="parameter">
+			<input class="parameterCell" placeholder="{{item.placeholder}}" bindinput="formInputChange" data-field="{{item.field}}" value="{{billModel[item.field]}}"></input>
 			<!-- 下面三个view是线条 -->
 			<view class="vLine" wx:if="{{index % 2 == 0}}"></view>
-			<view class="paramaterCell" wx:if="{{index % 2 == 0 && index == paramaters.length - 1}}"></view>
-			<view class="hLine" wx:if="{{index % 2 == 1 || index == paramaters.length - 1}}"></view>
+			<view class="parameterCell" wx:if="{{index % 2 == 0 && index == parameters.length - 1}}"></view>
+			<view class="hLine" wx:if="{{index % 2 == 1 || index == parameters.length - 1}}"></view>
 		</block>
 	</view>
 	<view style="height: 64rpx;"></view>

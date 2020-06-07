@@ -1,15 +1,11 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/purchase/bill/create/create",
-    "pages/purchase/bill/search/search",
-    "pages/purchase/item/create/create",
-    "pages/purchase/item/search/search",
-    "pages/repair/bill/cud/cud",
-    "pages/repair/bill/search/search",
-    "pages/repair/item/menu/menu",
-    "pages/repair/item/list/list",
-    "pages/repair/item/cud/cud",
+    "pages/bill/cud/cud",
+    "pages/bill/search/search",
+    "pages/item/menu/menu",
+    "pages/item/list/list",
+    "pages/item/cud/cud",
     "pages/account/account"
   ],
   "window": {
