@@ -7,13 +7,13 @@
   justify-content: center;
 }
 .cell {
-    margin: 5px;
+    margin: 8px;
     padding: 0 10px;
     text-align: center;
-    background-color: var(--weui-BG-0);
-    width: 38%;
+    background-color: white;
+    width: 35%;
     line-height: 4.3em;
     color: var(--weui-FG-1);
-    border-radius: 6rpx;
+    border-radius: 10rpx;
     box-shadow: 3px 3px 4px #ccc;
 }

@@ -1,10 +1,7 @@
-<!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
-    <view>test content</view>
-</mp-dialog> -->
-<!-- <mp-grids grids="{{menu}}" extClass="myGrids"></mp-grids> -->
-
-<view class="content">
-	<navigator class="cell" url="../{{item.url}}" wx:for="{{menu}}" wx:key="list">
-		<view>{{item.text}}</view>
-	</navigator>
+<view class="page" data-weui-theme="{{theme}}">
+	<view class="content">
+		<navigator class="cell" url="../{{item.url}}" wx:for="{{menu}}" wx:key="list">
+			<view>{{item.text}}</view>
+		</navigator>
+	</view>
 </view>
