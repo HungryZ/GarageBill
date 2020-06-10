@@ -1,5 +1,7 @@
 <view class="page" data-weui-theme="{{theme}}">
 	<view class="page__bd">
+		<button bindtap="createButtonClicked">新建</button>
+			<!-- <button class="weui-btn" type="primary" bindtap="createButtonClicked">新建</button> -->
 		<mp-searchbar bindinput="inputting" bindconfirm='searchBtnClicked'></mp-searchbar>
 		<mp-cells title="">
 			<mp-cell wx:for="{{itemList}}" wx:key="repairItem" id="{{index}}" value="{{item.name}}" footer="{{item.price}}" bindtap="cellClicked"></mp-cell>

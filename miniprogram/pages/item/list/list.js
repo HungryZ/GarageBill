@@ -60,6 +60,12 @@ Page({
       }
     })
   },
+
+  createButtonClicked() {
+    wx.navigateTo({
+      url: '../cud/cud?itemType=' + this.data.itemType,
+    })
+  },
   
   searchBtnClicked() {
     this.selectItemsByName(this.data.inputVal)

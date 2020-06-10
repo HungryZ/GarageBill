@@ -6,7 +6,8 @@
     "pages/item/menu/menu",
     "pages/item/list/list",
     "pages/item/cud/cud",
-    "pages/account/account"
+    "pages/account/account",
+    "pages/statistics/statistics"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

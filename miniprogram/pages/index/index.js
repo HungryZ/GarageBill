@@ -4,7 +4,7 @@ const app = getApp()
 Page({
   data: {
     menu: [{
-        text: '新建修理单',
+        text: '新建维修单',
         url: 'bill/cud/cud?itemType=0'
       },
       {
@@ -12,7 +12,7 @@ Page({
         url: 'bill/cud/cud?itemType=1'
       },
       {
-        text: '查询修理单',
+        text: '查询维修单',
         url: 'bill/search/search?itemType=0'
       },
       {
@@ -28,11 +28,12 @@ Page({
         url: 'item/menu/menu?itemType=1'
       },
       {
-        text: '账号管理'
+        text: '统计',
+        url: 'statistics/statistics'
       },
       {
-        text: 'holder'
-      }
+        text: '账号管理'
+      },
     ]
   },
 
