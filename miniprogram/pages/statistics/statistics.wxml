@@ -1,13 +1,8 @@
 <view class="page" data-weui-theme="{{theme}}">
 	<view class="page__bd">
-				<picker class="white" mode="date" fields='month' bindchange="bindDateChange">
-		<mp-cell link value="年月" footer="{{dateString}}"></mp-cell>
-				</picker>
-		<!-- <view class="weui-cell white" style='height: 60rpx;'>
-			<view class="weui-cell__bd">年月</view>
-			<view class="weui-cell__ft">
-			</view>
-		</view> -->
+		<picker class="white" mode="date" fields='month' bindchange="bindDateChange">
+			<mp-cell link value="年月" footer="{{dateString}}"></mp-cell>
+		</picker>
 		<block wx:for="{{statisticList}}" wx:key="statisticList">
 			<view class="statistics-cell {{index % 2 ? 'white' : 'gray'}}">
 				<view class='date'>{{index + 1}}日</view>
