@@ -1,1 +1,44 @@
-/* miniprogram/pages/statistics/statistics.wxss */
+
+.statistics-cell {
+  height: 114rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  margin-left: 30rpx;
+  text-align: left;
+  width: 30%;
+  color: gray;
+}
+
+.I-E {
+  width: 30%;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.profit {
+  width: 30%;
+  margin-right: 30rpx;
+  text-align: right;
+  /* width: 25%; */
+  font-size: 48rpx;
+}
+
+.white {
+  background-color: white;
+}
+
+.gray {
+  background-color: #f6f6f6;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
