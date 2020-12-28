@@ -13,7 +13,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "汽修运营管理平台",
+    "navigationBarTitleText": "铠驰车服维修单",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
