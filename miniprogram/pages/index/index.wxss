@@ -1,19 +1,33 @@
 /**index.wxss**/
 .content {
-  padding-top: 10px;
-  width: 100%;
+  padding: 10px 15px;
+  /* width: 100%; */
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between; /*主轴上的对齐方式*/
+  align-items: center;  /*交叉轴上的对齐方式*/
 }
 .cell {
-    margin: 8px;
-    padding: 0 10px;
+    /* margin: 8px; */
+    /* padding: 0 10px; */
     text-align: center;
-    background-color: white;
-    width: 35%;
-    line-height: 4.3em;
+    /* background-color: white; */
+    /* width: 35%; */
+    /* line-height: 4.3em; */
     color: var(--weui-FG-1);
-    border-radius: 10rpx;
-    box-shadow: 3px 3px 4px #ccc;
+    /* border-radius: 10rpx;
+    box-shadow: 3px 3px 4px #ccc; */
+  width: 160rpx;
+  height: 160rpx;
+  font-size: 26rpx;
+}
+
+.cell-image {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.header-image {
+  width: 100%;
+  height: 248rpx;
 }
