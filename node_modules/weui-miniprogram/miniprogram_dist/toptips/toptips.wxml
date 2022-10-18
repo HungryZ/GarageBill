@@ -1,6 +1,1 @@
-<view class="weui-toptips {{className}} {{extClass}} {{show ? 'weui-toptips_show' :  ''}}">
-    <block wx:if="{{msg}}">{{msg}}</block>
-    <block wx:else>
-        <slot></slot>
-    </block>
-</view>
+<view wx:if="{{wrapperShow}}" aria-role="alert" class="weui-toptips weui-toptips_warn {{className}} {{extClass}} {{innerShow ? 'weui-animate-fade-in' :  'weui-animate-fade-out'}}"><block wx:if="{{msg}}">{{msg}}</block><block wx:else><slot/></block></view>

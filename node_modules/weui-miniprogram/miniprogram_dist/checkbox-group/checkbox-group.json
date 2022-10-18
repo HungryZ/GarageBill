@@ -1,6 +1,6 @@
 {
-    "component": true,
-    "usingComponents": {
-        "mp-cells": "../cells/cells"
-    }
+  "component": true,
+  "usingComponents": {
+    "mp-cells": "../cells/cells"
+  }
 }

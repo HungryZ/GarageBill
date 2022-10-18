@@ -1,6 +1,6 @@
 {
-    "component": true,
-    "usingComponents": {
-        "mp-gallery": "../gallery/gallery"
-    }
+  "component": true,
+  "usingComponents": {
+    "mp-gallery": "../gallery/gallery"
+  }
 }
