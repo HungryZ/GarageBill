@@ -1,12 +1,18 @@
 <view class="page" data-weui-theme="{{theme}}">
-	<image class="header-image" mode="aspectFill" src='../../images/banner.jpg'>
-	</image>
-	<view class="content">
-		<navigator url="../{{item.url}}" wx:for="{{menu}}" wx:key="list">
-			<view class="cell">
-				<image class="cell-image" mode="aspectFit" src="{{item.icon}}"></image>
-				<view class="cell-text">{{item.text}}</view>
-			</view>
-		</navigator>
-	</view>
+  <image class="header-image" mode="aspectFill" src='../../images/banner.jpg'>
+  </image>
+  <view class="content">
+    <block wx:for="{{menu}}" wx:key="list">
+      <navigator url="../{{item.url}}" wx:if="{{index != 7}}">
+        <view class="cell">
+          <image class="cell-image" mode="aspectFit" src="{{item.icon}}"></image>
+          <view class="cell-text">{{item.text}}</view>
+        </view>
+      </navigator>
+      <view class="cell" bindtap='cameraButtonClicked' wx:else>
+        <image class="cell-image" mode="aspectFit" src="{{item.icon}}"></image>
+        <view class="cell-text">{{item.text}}</view>
+      </view>
+    </block>
+  </view>
 </view>

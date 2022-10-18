@@ -1,7 +1,7 @@
 Page({
 
   data: {
-    itemType: 0, // 0修补单 1采购单
+    itemType: 0, // 0维修单 1采购单
     selectedTypeIndex: 0,
     typeArray: [],
     typeField: [],
@@ -11,6 +11,11 @@ Page({
   },
 
   onLoad: function (options) {
+    this.setData({
+      itemType: options.itemType,
+      selectedTypeIndex: options.selectedTypeIndex,
+      inputVal: options.inputVal
+    })
     if (this.data.itemType == 0) {
       this.setData({
         typeArray: ['车牌号', '车型', '车主姓名', '车主手机号'],
@@ -23,6 +28,10 @@ Page({
         typeField: [''],
         itemType: options.itemType
       })
+    }
+    if (this.data.inputVal) {
+      console.log(this.data.inputVal)
+      this.searchBtnClicked()
     }
   },
 
