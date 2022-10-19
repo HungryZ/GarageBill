@@ -13,7 +13,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       itemType: options.itemType,
-      selectedTypeIndex: options.selectedTypeIndex,
+      selectedTypeIndex: options.selectedTypeIndex ? options.selectedTypeIndex : 0,
       inputVal: options.inputVal
     })
     if (this.data.itemType == 0) {
@@ -90,7 +90,7 @@ Page({
         wx.hideLoading()
         console.log('[云函数] [regexp-search] 调用成功：', res.result)
         this.setData({
-          billList: res.result.data
+          billList: res.result.data.reverse()
         })
         this.configBillDate()
       },

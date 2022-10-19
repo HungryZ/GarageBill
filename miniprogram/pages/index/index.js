@@ -57,6 +57,7 @@ Page({
 
   cameraButtonClicked() {
     wx.showLoading({
+      title: '车牌识别中',
       mask: true
     })
     let that = this
