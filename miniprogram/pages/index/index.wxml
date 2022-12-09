@@ -9,10 +9,12 @@
           <view class="cell-text">{{item.text}}</view>
         </view>
       </navigator>
-      <view class="cell" bindtap='cameraButtonClicked' wx:else>
+      <view class="cell" bindtap='scanItemClicked' wx:else>
         <image class="cell-image" mode="aspectFit" src="{{item.icon}}"></image>
         <view class="cell-text">{{item.text}}</view>
       </view>
     </block>
   </view>
+
+  <canvas class="canvas" style="width:{{drawWidth}}px;height:{{drawHeight}}px;" canvas-id='attendCanvasId'></canvas>
 </view>
