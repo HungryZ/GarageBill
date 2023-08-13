@@ -1,7 +1,7 @@
 <view class="page" data-weui-theme="{{theme}}">
 	<view class="page__bd">
 		<mp-cell link value="搜索类型" footer="{{typeArray[selectedTypeIndex]}}" bindtap="searchTypeClicked"></mp-cell>
-		<mp-searchbar bindinput="inputting" bindconfirm='searchBtnClicked'></mp-searchbar>
+		<mp-searchbar bindinput="inputting" bindconfirm='searchBtnClicked' value='{{inputVal}}'></mp-searchbar>
 		<mp-cells title="">
 			<mp-cell wx:for="{{billList}}" wx:key="billItem" id="{{index}}" value="{{itemType == 0 ? item.plateNumber : '采购单'}}" footer="{{item.dateString}}" bindtap="cellClicked"></mp-cell>
 		</mp-cells>

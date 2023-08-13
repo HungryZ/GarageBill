@@ -1,2 +1,2 @@
 <!--miniprogram/pages/scan.wxml-->
-<text>miniprogram/pages/scan.wxml</text>
+<button bindtap='buttonClicked'>Button</button>
