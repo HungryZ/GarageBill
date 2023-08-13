@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/bill/cud/cud",
     "pages/bill/search/search",
+    "pages/bill/print/print",
     "pages/item/menu/menu",
     "pages/item/list/list",
     "pages/item/cud/cud",

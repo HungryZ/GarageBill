@@ -1,3 +1,6 @@
+//获取应用实例
+const app = getApp()
+
 Page({
 
   data: {
@@ -49,6 +52,12 @@ Page({
         })
       }
     }
+  },
+
+  onPrint() {
+    wx.navigateTo({
+      url: '../print/print?bill=' + JSON.stringify(this.data.billModel),
+    })
   },
 
   onItemDelete(e) {
@@ -239,43 +248,7 @@ Page({
   configParameters() {
     let parameters;
     if (this.data.itemType == 0) {
-      parameters = [{
-          placeholder: '请输入车牌',
-          field: 'plateNumber',
-          rules: [{
-            ruleType: 0,
-            message: '车牌号必填'
-          }],
-        },
-        {
-          placeholder: '请输入车型',
-          field: 'carModel',
-          rules: [{
-            ruleType: 0,
-            message: '车型必填'
-          }],
-        },
-        {
-          placeholder: '请输入车主',
-          field: 'owner'
-        },
-        {
-          placeholder: '请输入手机',
-          field: 'phone',
-          rules: [{
-            ruleType: 2,
-            message: '手机号格式错误'
-          }],
-        },
-        {
-          placeholder: '请输入里程',
-          field: 'mileage',
-          rules: [{
-            ruleType: 0,
-            message: '里程必填'
-          }],
-        },
-      ]
+      parameters = app.billParameters()
     } else {
       parameters = []
     }

@@ -32,7 +32,8 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "minifyWXML": true
+    "minifyWXML": true,
+    "condition": false
   },
   "appid": "wxd88032311d704b02",
   "projectname": "GarageBill",

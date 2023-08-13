@@ -1,0 +1,6 @@
+/* pages/search/search.wxss */
+
+.cus__hd {
+  font-size: 1.6em;
+  line-height: 2em;
+}

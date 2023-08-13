@@ -1,0 +1,36 @@
+<view class="weui-form-preview">
+  <view class="weui-form-preview__hd">
+    <view class="page__title">铠驰车服维修单</view>
+  </view>
+  <view class="weui-form-preview__hd">
+    <view class="weui-form-preview__item" wx:for="{{parameters}}" wx:key="parameter" wx:if="{{item.field == 'plateNumber'}}">
+      <view class="weui-form-preview__label">{{item.name}}</view>
+      <view class="weui-form-preview__value_in—hd">{{bill[item.field]}}</view>
+    </view>
+    <view class="weui-form-preview__item">
+      <view class="weui-form-preview__label">日期</view>
+      <view class="weui-form-preview__value_in—hd">{{bill.dateString}}</view>
+    </view>
+  </view>
+  <view class="weui-form-preview__bd">
+    <!-- 这里遍历是为了使用app.js中的name -->
+    <view class="weui-form-preview__item" wx:for="{{parameters}}" wx:key="parameter" wx:if="{{bill[item.field] && item.field != 'plateNumber'}}">
+      <view class="weui-form-preview__label">{{item.name}}</view>
+      <view class="weui-form-preview__value">{{bill[item.field]}}</view>
+    </view>
+  </view>
+  <view class="weui-form-preview__bd">
+    <view class="weui-form-preview__item" wx:for="{{bill.items}}" wx:key="items">
+      <view class="weui-form-preview__label" style="max-width: 18em;text-align-last: left;">
+        {{item.name + (item.count != 1 ? '（× ' + item.count + '）' : ' ')}}
+      </view>
+      <view class="weui-form-preview__value">{{item.price * item.count}}</view>
+    </view>
+  </view>
+  <view class="weui-form-preview__hd">
+    <view class="weui-form-preview__item">
+      <view class="weui-form-preview__label">总金额</view>
+      <view class="weui-form-preview__value_in—hd">{{bill.amount}}</view>
+    </view>
+  </view>
+</view>

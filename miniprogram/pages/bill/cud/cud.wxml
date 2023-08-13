@@ -46,5 +46,6 @@
 </view>
 <view slot="button" style="margin-top: 44px">
 	<button class="weui-btn" type="primary" bindtap="onSave">保存</button>
+	<button class="weui-btn" type="default" bindtap="onPrint">打印</button>
 	<button class="weui-btn" type="warn" wx:if="{{type == 1}}" bindtap="onBillDelete">删除</button>
 </view>
