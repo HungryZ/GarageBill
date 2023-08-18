@@ -79,8 +79,8 @@ Page({
         })
       },
       fail(err) {
-        that.data.log += 'chooseMedia fail:' + err + ' |\n'
-        console.log('chooseMedia fail:' + err)
+        that.data.log += 'chooseMedia fail:' + JSON.stringify(err) + ' |\n'
+        console.log('chooseMedia fail:' + JSON.stringify(err))
         wx.showToast({
           icon: 'none',
           title: '拍照失败'
@@ -157,8 +157,8 @@ Page({
         })
       },
       fail(err) {
-        that.data.log += 'compressImageByWX compressImage fail:' + err + ' |\n'
-        console.log('compressImageByWX compressImage fail:' + err)
+        that.data.log += 'compressImageByWX compressImage fail:' + JSON.stringify(err) + ' |\n'
+        console.log('compressImageByWX compressImage fail:' + JSON.stringify(err))
         wx.showToast({
           icon: 'none',
           title: '压缩失败'
