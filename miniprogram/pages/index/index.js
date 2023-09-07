@@ -69,12 +69,15 @@ Page({
           title: '车牌识别中',
           mask: true
         })
-        that.data.compressStartTime = performance.now()
+        that.data.compressStartTime = wx.getPerformance().now()
         that.handleImage(res.tempFiles[0], (succeed, imageBase64) => {
-          that.data.log += 'handleImage done cost:' + (performance.now() - that.data.compressStartTime).toFixed(0) + ' |\n'
+          that.data.log += 'handleImage done cost:' + (wx.getPerformance().now() - that.data.compressStartTime).toFixed(0) + 'ms' + ' |\n'
+          console.log('handleImage done cost:' + (wx.getPerformance().now() - that.data.compressStartTime).toFixed(0) + 'ms' + ' |\n')
           if (succeed) {
             let imageBase64Full = 'data:image/jpeg;base64,' + imageBase64
             that.requestOCR(imageBase64Full)
+          } else {
+            that.uploadLog()
           }
         })
       },
@@ -91,10 +94,9 @@ Page({
 
   handleImage(tempFile, complete) {
     this.data.log = ''
-    this.data.log += Date() + ' |\n'
     this.data.log += 'IMAGE_SIZE_LIMIT:' + (IMAGE_SIZE_LIMIT / 1024).toFixed(0) + 'KB' + ' |\n'
-    this.data.log += 'origin image size:' + (tempFile.size / 1024).toFixed(0) + ' |\n'
-    console.log('origin image size:' + (tempFile.size / 1024).toFixed(0))
+    this.data.log += 'origin image size:' + (tempFile.size / 1024).toFixed(0) + 'KB' + ' |\n'
+    console.log('origin image size:' + (tempFile.size / 1024).toFixed(0) + 'KB')
     if (tempFile.size <= IMAGE_SIZE_LIMIT) {
       this.data.log += 'origin image size ok |\n'
       console.log('origin image size ok')
@@ -129,8 +131,8 @@ Page({
           encoding: 'base64',
           success(res) {
             var compressedImageSize = (res.data.length - (res.data.length / 8) * 2).toFixed(3);
-            that.data.log += 'compressedImageSize:' + (compressedImageSize / 1024).toFixed(0) + ', times:' + times + ' |\n'
-            console.log('compressedImageSize:' + (compressedImageSize / 1024).toFixed(0) + ', times:' + times)
+            that.data.log += 'compressedImageSize:' + (compressedImageSize / 1024).toFixed(0) + 'KB' + ', times:' + times + ' |\n'
+            console.log('compressedImageSize:' + (compressedImageSize / 1024).toFixed(0) + 'KB' + ', times:' + times)
             if (compressedImageSize <= sizeLimit) {
               that.data.log += 'compress done times:' + times + ' |\n'
               console.log('compress done times:' + times)
@@ -146,8 +148,8 @@ Page({
             }
           },
           fail(err) {
-            that.data.log += 'compressImageByWX readFile fail:' + err + ' |\n'
-            console.log('compressImageByWX readFile fail:' + err)
+            that.data.log += 'compressImageByWX readFile fail:' + JSON.stringify(err) + ' |\n'
+            console.log('compressImageByWX readFile fail:' + JSON.stringify(err))
             wx.showToast({
               icon: 'none',
               title: '解码失败'
@@ -201,8 +203,8 @@ Page({
                 encoding: 'base64',
                 success(res) {
                   var imageSize = ((res.data.length - (res.data.length / 8) * 2) / 1024).toFixed(3);
-                  that.data.log += 'redrawImageByCanvas done size:' + imageSize + ' |\n'
-                  console.log('redrawImageByCanvas done size:' + imageSize)
+                  that.data.log += 'redrawImageByCanvas done size:' + imageSize + 'KB' + ' |\n'
+                  console.log('redrawImageByCanvas done size:' + imageSize + 'KB')
                   complete(true, res.data)
                 },
                 fail(err) {
@@ -224,7 +226,7 @@ Page({
   },
 
   requestOCR(imageBase64) {
-    this.data.OCRStartTime = performance.now()
+    this.data.OCRStartTime = wx.getPerformance().now()
     this.data.log += 'requestOCR start' + ' |\n'
     console.log('requestOCR start')
     let that = this
@@ -243,12 +245,11 @@ Page({
         if (res.data.number) {
           that.data.log += 'requestOCR success:' + JSON.stringify(res.data) + ' |\n'
           console.log('requestOCR success:' + JSON.stringify(res.data))
-          let nowTime = performance.now()
+          let nowTime = wx.getPerformance().now()
           that.data.log += 'requestOCR done cost:' + (nowTime - that.data.OCRStartTime).toFixed(0) + ' |\n'
           console.log('requestOCR done cost:' + (nowTime - that.data.OCRStartTime).toFixed(0))
           that.data.log += 'OCR Flow done total cost:' + (nowTime - that.data.compressStartTime).toFixed(0) + ' |\n'
           console.log('OCR Flow done total cost:' + (nowTime - that.data.compressStartTime).toFixed(0))
-          that.uploadLog()
           wx.navigateTo({
             url: '../bill/search/search?itemType=0&selectedTypeIndex=0&inputVal=' + res.data.number,
           })
@@ -257,15 +258,19 @@ Page({
             icon: 'none',
             title: '识别失败'
           })
+          that.data.log += 'requestOCR fail: request succeed but no number' + ' |\n'
+          console.log('requestOCR fail: request succeed but no number')
         }
+        that.uploadLog()
       },
       fail(error) {
-        that.data.log += 'requestOCR fail:' + error + ' |\n'
-        console.log('requestOCR fail:' + error)
         wx.showToast({
           icon: 'none',
           title: '识别失败'
         })
+        that.data.log += 'requestOCR fail:' + JSON.stringify(error) + ' |\n'
+        console.log('requestOCR fail:' + JSON.stringify(error))
+        that.uploadLog()
       },
     })
   },
@@ -276,6 +281,7 @@ Page({
       data: {
         collectionName: 'log',
         data: {
+          date: new Date(),
           log: this.data.log
         }
       },
